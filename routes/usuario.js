@@ -1,7 +1,17 @@
 const {Router} = require('express');
 const { check } = require('express-validator');
 
-const { validarCampos } = require('../middlewares/validar-campos');
+// const { validarCampos } = require('../middlewares/validar-campos');
+// const { validarJWT } = require('../middlewares/validar-jwt');
+// const { esAdminRole, tieneRole } = require('../middlewares/validar-roles');
+// Esto reemplaza lo anterior
+const {
+  validarCampos,
+  validarJWT,
+  esAdminRole,
+  tieneRole
+} = require('../middlewares'); // Es igual que colocar '../middlewares/index'
+
 const { validaRol, existeEmail, existeUsrPorId } = require('../helpers/db-validators');
 
 const { usuarioGet, usuarioPost, usuarioPut, usuarioPatch, usuarioDelete } = require('../controllers/usuario');
@@ -31,6 +41,9 @@ router.put('/:id', [
 router.patch('/', usuarioPatch);
 
 router.delete('/:id', [
+  validarJWT,
+  //esAdminRole ,
+  tieneRole('ADMIN_ROLE', 'VENTAS_ROLE'),
   check('id','No es un ID valido').isMongoId(),
   check('id').custom(existeUsrPorId),
   validarCampos

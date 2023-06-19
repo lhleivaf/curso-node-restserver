@@ -111,9 +111,10 @@ const usuarioDelete = async(req = request, res = response) => {
 
     // Dejar no vigente para poder eliminar logicamente el registro.
     const usuario = await Usuario.findByIdAndUpdate(id,{estado: false});
+    // const usuarioAutenticado = req.usuario;
 
 
-    res.json(usuario);
+    res.json({usuario});
 };
 
 module.exports = {
