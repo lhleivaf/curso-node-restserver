@@ -56,7 +56,6 @@ const buscaProductos = async (termino = '', res = response) => {
     res.json({ results: productos});
 }
 
-
 const buscar = (req = request, res = response) => {
     const {coleccion, termino} = req.params;
 

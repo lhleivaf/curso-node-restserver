@@ -42,11 +42,23 @@ const validaRol = async(rol='') => {
     }
  };
 
+/**
+ * Validar colecciones permitidas
+ */
+
+const coleccionesPermitidas = (coleccion = '', colecciones = []) => {
+   if (!colecciones.includes(coleccion)) {
+      throw new Error(`la colección ${coleccion} no es permitida. (${colecciones})`);
+   }
+   return true;
+}
+
 module.exports = {
     validaRol,
     existeEmail,
     existeUsrPorId,
     existeCategoriaPorId,
-    existeProductoPorId
+    existeProductoPorId,
+    coleccionesPermitidas
 }
 
